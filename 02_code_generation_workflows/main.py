@@ -1,6 +1,7 @@
 # main.py - Validates Claude Code workspace configuration
 import json
 import os
+import re
 
 from config import CYAN, GREEN, YELLOW, RED, DIM, BOLD, RESET
 
@@ -13,7 +14,12 @@ def check_claude_md():
         return result
     with open(path, "r") as f:
         content = f.read()
-    if "@import" not in content:
+    # Claude Code's import parser skips fenced code blocks and code spans,
+    # so a stray "@import" mentioned in prose (e.g. wrapped in backticks)
+    # must not count as a real import directive.
+    without_code = re.sub(r"```.*?```", "", content, flags=re.DOTALL)
+    without_code = re.sub(r"`[^`]*`", "", without_code)
+    if not re.search(r"@\S+", without_code):
         result = (False, "CLAUDE.md exists but does not use @import")
         return result
     result = (True, "CLAUDE.md exists with @import")

@@ -19,4 +19,4 @@
 - `app/sample_app.test.py` — tests for sample_app.py
 - `manage.py` — `python manage.py restart` restores starter state, `python manage.py solve` applies all configurations
 - `_manage/starter/` — starter files (CLAUDE.md, app/sample_app.py, app/sample_app.test.py)
-- `_manage/solved/` — completed configurations (CLAUDE.md with @import, rules, commands, .mcp.json)
+- `_manage/solved/` — completed configurations (CLAUDE.md with `@import`, rules, commands, .mcp.json)
